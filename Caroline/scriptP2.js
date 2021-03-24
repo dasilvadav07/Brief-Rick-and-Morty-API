@@ -1,4 +1,5 @@
 const cardContainer = document.querySelector(".container__infos--perso");
+const cardPerso = document.querySelector(".perso__cards");
 
 
 fetch("https://rickandmortyapi.com/api/character")
@@ -9,9 +10,21 @@ fetch("https://rickandmortyapi.com/api/character")
         console.log(data.results)
         let tabPerso = data.results;
         for(let perso of tabPerso){
-            createCard(perso)
+            imgCard(perso)
         }
     })
+    // .then(function (data) {
+    //     console.log(data.results)
+    //     let tabPerso = data.results;
+    //     for(let perso of tabPerso){
+    //         createCard(perso)
+    //     }
+    // })
+
+    function imgCard(image) {
+        cardPerso.innerHTML += 
+        `<div class="container__img--perso"><img src="${image.url}"></div>`
+    }
 
 function createCard({ name, status, species, type, gender, origin, location, episode }) {
     cardContainer.innerHTML +=

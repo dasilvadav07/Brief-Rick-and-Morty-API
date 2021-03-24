@@ -125,6 +125,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var cardContainer = document.querySelector(".container__infos--perso");
+var cardPerso = document.querySelector(".perso__cards");
 fetch("https://rickandmortyapi.com/api/character").then(function (response) {
   return response.json();
 }).then(function (data) {
@@ -137,14 +138,24 @@ fetch("https://rickandmortyapi.com/api/character").then(function (response) {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var perso = _step.value;
-      createCard(perso);
+      imgCard(perso);
     }
   } catch (err) {
     _iterator.e(err);
   } finally {
     _iterator.f();
   }
-});
+}); // .then(function (data) {
+//     console.log(data.results)
+//     let tabPerso = data.results;
+//     for(let perso of tabPerso){
+//         createCard(perso)
+//     }
+// })
+
+function imgCard(image) {
+  cardPerso.innerHTML += "<div class=\"container__img--perso\"><img src=\"".concat(image.url, "\"></div>");
+}
 
 function createCard(_ref) {
   var name = _ref.name,
