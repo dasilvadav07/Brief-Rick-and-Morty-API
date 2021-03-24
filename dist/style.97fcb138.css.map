@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.scss"],"names":[],"mappings":"AAAA;EACI;EACA;;;AAEJ;EACI;EACA","file":"style.97fcb138.css","sourceRoot":"..","sourcesContent":["body{\r\n    font-family: 'Patrick Hand SC', cursive;\r\n    background-color: #000;\r\n}\r\np{\r\n    color: #7EE048;\r\n    font-size: 3em;\r\n}"]}
