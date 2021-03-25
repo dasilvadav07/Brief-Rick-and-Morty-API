@@ -118,7 +118,24 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"script.js":[function(require,module,exports) {
-
+var menuBtn = document.querySelector("#menu-mobile");
+var firstBar = document.querySelector("#menu-mobile span:first-child");
+var secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
+var thirdBar = document.querySelector("#menu-mobile span:last-child");
+var navMobile = document.querySelector(".nav__mobile");
+menuBtn.addEventListener("click", function () {
+  if (firstBar.classList.contains("transition")) {
+    firstBar.classList.remove("transition");
+    secondBar.classList.remove("transition2");
+    thirdBar.classList.remove("transition3");
+    navMobile.classList.remove("appear");
+  } else {
+    firstBar.classList.add("transition");
+    secondBar.classList.add("transition2");
+    thirdBar.classList.add("transition3");
+    navMobile.classList.add("appear");
+  }
+});
 },{}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
