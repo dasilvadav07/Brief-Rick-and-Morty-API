@@ -117,79 +117,159 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"scriptP1.js":[function(require,module,exports) {
+/*
+fetch("https://rickandmortyapi.com/api/episode")
+    .then(function (res) {
+        return res.json();
+    })
+    .then(function (data) {        
+        console.log(data);
+        */
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
+/*
+let select = document.querySelector("#season");
+let tabResult = data.results;
+const mainContainer = document.querySelector(".main");
+    //console.log(select);
+    select.addEventListener("change", (e) =>{
+        let season = e.target.value;
+        console.log(season);
+        console.log(tabResult);
+        mainContainer.innerHTML = "";
+        for (let i = 0; i < tabResult.length; i++) {
+            //console.log(tabResult[i].episode);
+            let splitSeason = tabResult[i].episode.split("");
+            console.log(splitSeason[2]);
+            if (season == "s1" && splitSeason[2] == 1) {
+                addNewCard(tabResult[i]);
+            }
+            else if (season == "s2" && splitSeason[2] == 2) {
+                addNewCard(tabResult[i]);
+            }
+        }
+            //console.log(splitSeason);
+      })
+      */
 
-  return bundleURL;
-}
+/*})
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+.catch(function (error) {
+   console.error(error);
+})  */
 
-    if (matches) {
-      return getBaseURL(matches[0]);
+/*
+fetch("https://rickandmortyapi.com/api/episode?page=2")
+    .then(function (resp) {
+        return resp.json();
+    })
+    .then(function(data2){
+        console.log(data2);
+    })
+    */
+
+/*
+let tabFetch = [fetch("https://rickandmortyapi.com/api/episode"), fetch("https://rickandmortyapi.com/api/episode?page=2"), fetch("https://rickandmortyapi.com/api/episode?page=3")]
+for (let j = 0; j < tabFetch.length; j++) {
+tabFetch[j].then(function (res) {
+    return res.json();
+})
+.then(function (data) {        
+    let tabData = [data.results];
+    //console.log(tabData[0]);
+    for (let i = 0; i < tabData.length; i++) {
+        //console.log(tabData[0]);
+        for (let j = 0; j < tabData[i].length; j++) {
+            //console.log(tabData[i][j]);
+            let select = document.querySelector("#season");
+            const mainContainer = document.querySelector(".main");
+            let allDataResults = (tabData[i])[j];
+            //console.log(allDataResults.episode);
+            select.addEventListener("change", (e) =>{
+                let season = e.target.value;
+                let splitSeason = allDataResults.episode.split("");
+                //console.log(splitSeason[2]);
+                //mainContainer.innerHTML = "";
+                //console.log(splitSeason);
+                if (season == "s1" && splitSeason[2] == 1) {
+                    //console.log(allDataResults);
+                    addNewCard(allDataResults);
+                } else if (season == "s2" && splitSeason[2] == 2) {
+                    addNewCard(allDataResults);
+                } else if (season == "s3" && splitSeason[2] == 3) {
+                    addNewCard(allDataResults);
+                } else if (season == "s4" && splitSeason[2] == 4) {
+                    addNewCard(allDataResults);
+                } 
+            })
+        }
     }
+    
+ })
+.catch(function (error) {
+    console.error(error);
+})
+
+}
+*/
+var urls = ["https://rickandmortyapi.com/api/episode", "https://rickandmortyapi.com/api/episode?page=2", "https://rickandmortyapi.com/api/episode?page=3"];
+
+for (var i = 0; i < urls.length; i++) {
+  var url = urls[i];
+}
+
+Promise.all(urls.map(function (url) {
+  return fetch(url);
+})).then(function (resp) {
+  return Promise.all(resp.map(function (r) {
+    return r.json();
+  }));
+}).then(function (data) {
+  //console.log(data);
+  for (var j = 0; j < data.length; j++) {//console.log(data[j].results);
   }
 
-  return '/';
+  var tab = data[0].results.concat(data[1].results, data[2].results);
+  console.log(tab);
+  var select = document.querySelector("#season");
+  var mainContainer = document.querySelector(".main"); //console.log(select);
+
+  select.addEventListener("change", function (e) {
+    var season = e.target.value; //console.log(season);
+
+    mainContainer.innerHTML = "";
+
+    for (var _i = 0; _i < tab.length; _i++) {
+      //console.log(tabResult[i].episode);
+      var splitSeason = tab[_i].episode.split(""); //console.log(splitSeason[2]);
+
+
+      if (season == "s1" && splitSeason[2] == 1) {
+        addNewCard(tab[_i]);
+      } else if (season == "s2" && splitSeason[2] == 2) {
+        addNewCard(tab[_i]);
+      } else if (season == "s3" && splitSeason[2] == 3) {
+        addNewCard(tab[_i]);
+      } else if (season == "s4" && splitSeason[2] == 4) {
+        addNewCard(tab[_i]);
+      } //let episodeName = document.querySelectorAll(".card--name");
+      //  console.log(episodeName);
+
+    } //console.log(splitSeason);
+
+  });
+});
+
+function addNewCard(episodes) {
+  var mainContainer = document.querySelector(".main");
+  mainContainer.innerHTML += "<div class=\"card\">\n    <span class=\"card--name\">".concat(episodes.name, "</span>\n    <button class=\"button\">").concat(episodes.episode, "</button>\n    </div>");
 }
 
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+function cardDescription(episodes) {
+  var mainContainer = document.querySelector(".main");
+  mainContainer.innerHTML += "<div class=\"card--description\">\n    <div claas=\"card--perso\">\n    <img src=\"".concat(episodes.characters, "\" alt=\"characters from rick and morty\">\n    </div>\n    </div>");
 }
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"style.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +297,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59929" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51649" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -393,5 +473,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/style.e308ff8e.js.map
+},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","scriptP1.js"], null)
+//# sourceMappingURL=/scriptP1.3eff2a5d.js.map
