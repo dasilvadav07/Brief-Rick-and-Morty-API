@@ -1,39 +1,60 @@
-const cardContainer = document.querySelector(".container__infos--perso");
 const cardPerso = document.querySelector(".perso__cards");
+const containerNames = document.querySelector(".perso__names");
 
-
-fetch("https://rickandmortyapi.com/api/character")
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data.results)
-        let tabPerso = data.results;
-        for(let perso of tabPerso){
-            imgCard(perso)
-        }
-    })
-    // .then(function (data) {
-    //     console.log(data.results)
-    //     let tabPerso = data.results;
-    //     for(let perso of tabPerso){
-    //         createCard(perso)
-    //     }
-    // })
-
-    function imgCard(image) {
-        cardPerso.innerHTML += 
-        `<div class="container__img--perso"><img src="${image.url}"></div>`
-    }
-
-function createCard({ name, status, species, type, gender, origin, location, episode }) {
-    cardContainer.innerHTML +=
-    `<h4 class="perso__name">${name}</h4>
-        <span>Status : ${status}</span>
-        <span>Espèce : ${species}</span>
-        <span>Type : ${type}</span>
-        <span>Genre : ${gender}</span>
-        <span>Origine : ${origin.name}</span>
-        <span>Dernier lieu : ${location.name}</span>`
-        // <ul>Episodes : <li>${episode}</li></ul>
+let urls = ["https://rickandmortyapi.com/api/character", "https://rickandmortyapi.com/api/character/?page=2", "https://rickandmortyapi.com/api/character/?page=3"];
+for (let index = 0; index < urls.length; index++) {
+    const url = urls[index];
 }
+Promise.all(urls.map(url => fetch(url)))
+    .then(resp => Promise.all(resp.map(r => r.json())))
+
+    .then(function (data) {
+
+        // let tabData = [data.results];
+        console.log(data)
+        let tabData = data[0].results.concat(data[1].results, data[2].results);
+        console.log(tabData)
+    
+
+        let tabSpecies = document.getElementsByClassName('species');
+        for (let i = 0; i < tabSpecies.length; i++) {
+            console.log(tabSpecies);
+            tabSpecies[i].addEventListener('click', () => {
+                cardPerso.innerHTML = "";
+
+                for (let perso = 0; perso < tabData.length; perso++) {
+
+
+                    if (tabData[perso].species == "Human" && i == 0) {
+                        imgCard(tabData[perso]);
+
+                    } else if (tabData[perso].species === "Alien" && i == 1) {
+
+                        imgCard(tabData[perso]);
+
+                    } else if (tabData[perso].species != "Human" && tabData[perso].species != "Alien" && i == 2) {
+                        imgCard(tabData[perso])
+                    }
+                }
+            })
+        }
+
+    
+    })
+
+
+
+function imgCard(results) {
+    cardPerso.innerHTML +=
+        `<div class="container__img--perso"><img class="avatar" src="${results.image}"></div>
+        <div class="container__button">
+        <button class="button__perso">${results.name}</button></div>
+        <div class="perso__text">
+        <span>Status : ${results.status}</span>
+        <span>Espèce : ${results.species}</span>
+        <span>Type : ${results.type}</span>
+        <span>Genre : ${results.gender}</span>
+        <span>Origine : ${results.origin.name}</span>
+        <span>Dernier lieu : ${results.location.name}</span>
+        </div>`
+};
