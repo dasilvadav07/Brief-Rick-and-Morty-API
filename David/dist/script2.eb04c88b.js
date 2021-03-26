@@ -117,79 +117,114 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"script2.js":[function(require,module,exports) {
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-  return bundleURL;
-}
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
+var divListEpisode = document.querySelector('#list-episodes');
+var tabFetch = ["https://rickandmortyapi.com/api/episode", "https://rickandmortyapi.com/api/episode?page=2", "https://rickandmortyapi.com/api/episode?page=3"];
+/*
+let select = document.getElementById("season");
+select.addEventListener("change", (e) =>{
+    let saison = (e.target.value);
+    switch (saison) {
+        case "s1": fetch(tabFetch[0])   
+            break;
+        case "s2" : fetch(tabFetch[1])
+            break;
+        case "s3" : fetch(tabFetch[2])
+            break;
+        default:
+            break;
     }
+})
+*/
+
+fetch(tabFetch[0]).then(function (response) {
+  return response.json();
+}).then(function (responJson) {
+  var listEpisode = responJson.results;
+  console.log(listEpisode);
+
+  var _iterator = _createForOfIteratorHelper(listEpisode),
+      _step;
+
+  try {
+    var _loop2 = function _loop2() {
+      var episode = _step.value;
+      var select = document.getElementById("season");
+      var splitSeason = episode.episode.split("");
+      console.log(splitSeason);
+      select.addEventListener("change", function (e) {
+        var saison = e.target.value;
+
+        if (saison == "s1" && splitSeason[2] == 1) {
+          divListEpisode.innerHTML += "<div class=\"episode-name\" id=\"episode-".concat(episode.id, "\">").concat(episode.name, "</div>");
+        } else if (saison == "s2" && splitSeason[2] == 2) {
+          divListEpisode.innerHTML += "<div class=\"episode-name\" id=\"episode-".concat(episode.id, "\">").concat(episode.name, "</div>");
+        } else if (saison == "s3" && splitSeason[2] == 3) {
+          divListEpisode.innerHTML += "<div class=\"episode-name\" id=\"episode-".concat(episode.id, "\">").concat(episode.name, "</div>");
+        } else if (saison == "s4" && splitSeason[2] == 4) {
+          divListEpisode.innerHTML += "<div class=\"episode-name\" id=\"episode-".concat(episode.id, "\">").concat(episode.name, "</div>");
+        }
+      }); // let elmtEpisode = document.getElementById(`episode-${episode.id}`);
+    };
+
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      _loop2();
+    } // toute les div avec la class episode-name
+
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
   }
 
-  return '/';
-}
+  var divEpisode = document.querySelectorAll('.episode-name'); //console.log('données en index 0 : ', listEpisode[0]);
+  //console.log('element HTML en index 0 : ', divEpisode[0]);
 
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
+  var _loop = function _loop(index) {
+    divEpisode[index].addEventListener('click', function () {
+      var listUriCharacter = listEpisode[index].characters;
+      console.log(listUriCharacter);
+      getEpisodeDetails(listUriCharacter, divEpisode[index]);
+    });
   };
 
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
+  for (var index = 0; index < divEpisode.length; index++) {
+    _loop(index);
   }
+}).catch(function (error) {
+  console.error(error);
+});
 
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
+function getEpisodeDetails(listUriCharacter, divEp) {
+  var reponse = [];
 
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
+  var _iterator2 = _createForOfIteratorHelper(listUriCharacter),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var uri = _step2.value;
+      fetch(uri).then(function (resp) {
+        return resp.json();
+      }).then(function (resp2) {
+        //console.log(resp2.id)
+        reponse.push(resp2);
+        divEp.innerHTML += "<span> ".concat(resp2.name, " </span>");
+      });
     }
-
-    cssTimeout = null;
-  }, 50);
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
 }
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"styleP1.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +252,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53896" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50449" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -393,5 +428,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/styleP1.26aa2c24.js.map
+},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script2.js"], null)
+//# sourceMappingURL=/script2.eb04c88b.js.map

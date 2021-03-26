@@ -106,13 +106,47 @@ Promise.all(urls.map(url => fetch(url)))
             //console.log(data[j].results);
         }
         let tab = data[0].results.concat(data[1].results, data[2].results);
-        console.log(tab);
+        //console.log(tab);
         let select = document.querySelector("#season");
         const mainContainer = document.querySelector(".main");
+        
             //console.log(select);
+            for (let i = 0; i < tab.length; i++) {
+                //console.log(tabResult[i].episode);
+                let splitSeason = tab[i].episode.split("");
+                //console.log(splitSeason[2]);
+                if (splitSeason[2] == 1) {
+                    addNewCard(tab[i]);
+                }
+            }
+            let ep = document.querySelectorAll(".card--name");
+                
+                for (let i = 0; i < ep.length; i++) { 
+                  ep[i].addEventListener('click', (e)=> {
+                    //console.log(tab.filter(x => x.id == ep[i].id));
+                    let objetEpisodeClicked = tab.filter(x => x.id == ep[i].id)[0];
+                    let chara = document.querySelector(".characters");
+                    const mainContainer = document.querySelector(".main");
+                    //mainContainer.classList.toggle("slide-right");
+                    chara.innerHTML = "";
+                    chara.classList.toggle("popup");
+                    for (const character of objetEpisodeClicked.characters) {
+                        fetch(character).then((resp)=> {
+                            return resp.json()
+                        }).then((respJson) => {
+                            console.log(respJson);
+                            chara.innerHTML += `<li class="description"><img src="${respJson.image}"/>${respJson.name}</li>`
+                      })
+                    }
+                  })
+                }
             select.addEventListener("change", (e) =>{
                 let season = e.target.value;
                 //console.log(season);
+                let chara = document.querySelector(".characters");
+                    chara.innerHTML = "";
+                    chara.classList.add("popup");
+                    chara.classList.toggle("popup");
                 mainContainer.innerHTML = "";
                 for (let i = 0; i < tab.length; i++) {
                     //console.log(tabResult[i].episode);
@@ -128,14 +162,42 @@ Promise.all(urls.map(url => fetch(url)))
                         addNewCard(tab[i]);
                     } else if (season == "s4" && splitSeason[2] == 4) {
                         addNewCard(tab[i]);
-                    } 
-                    //let episodeName = document.querySelectorAll(".card--name");
-                      //  console.log(episodeName);
+                    }
                 }
-                    //console.log(splitSeason);
 
+                let ep = document.querySelectorAll(".card--name");
+                
+                for (let i = 0; i < ep.length; i++) { 
+                  ep[i].addEventListener('click', (e)=> {
+                      console.log(tab.filter(x => x.id == ep[i].id));
+                      let objetEpisodeClicked = tab.filter(x => x.id == ep[i].id)[0];
+                      const mainContainer = document.querySelector(".main");
+                      mainContainer.classList.toggle("slide-right");
+                      let chara = document.querySelector(".characters");
+                      chara.innerHTML = "";
+                      chara.classList.toggle("popup");
+                      /*chara.classList.remove("close");*/
+                      for (const character of objetEpisodeClicked.characters) {
+                          fetch(character).then((resp)=> {
+                              return resp.json()
+                            }).then((respJson) => {
+                                //console.log(respJson);
+                                chara.innerHTML += `<li class="description"><img src="${respJson.image}"/>${respJson.name}</li>`
+                      })
+                    }
+                  })
+                }
+                
             })
+
     })
+/*let chara = document.querySelector(".characters");
+let cross = document.getElementById("close-popup");
+cross.addEventListener("click", function(event) {
+    if (event.target == chara) {
+        chara.style.display="none";
+    }
+})*/
 
 
 
@@ -143,11 +205,37 @@ function addNewCard(episodes) {
     const mainContainer = document.querySelector(".main");
     mainContainer.innerHTML +=
         `<div class="card">
-    <span class="card--name">${episodes.name}</span>
-    <button class="button">${episodes.episode}</button>
-    </div>`
-}
+          <span class="card--name" id="${episodes.id}">${episodes.name}</span>
+          <button class="button">${episodes.episode}</button>
 
+        </div>`;
+}
+/*
+let describ = document.querySelectorAll(".description");
+for (let index = 0; index < describ.length; index++) {
+    console.log(describ[0]);
+    //for (const div of describ) {
+      //  div.innerHTML += respJson.name;
+    //}
+}*/
+//describ.innerHTML += respJson.name
+/*
+function getEpisodeDetails(listUri, divEp) {
+    let reponse = [];
+  
+    for (const uri of listUri) {
+      fetch(uri).then((resp)=> {
+        return resp.json()
+      }).then((resp2)=> {
+        console.log(resp2.id)
+        reponse.push(resp2);
+        divEp.innerHTML += `<span> ${resp2.name} </span>`
+      })
+    }
+}
+*/
+
+/*
 function cardDescription(episodes) {
     const mainContainer = document.querySelector(".main");
     mainContainer.innerHTML +=
@@ -157,3 +245,4 @@ function cardDescription(episodes) {
     </div>
     </div>`   
 }
+*/
