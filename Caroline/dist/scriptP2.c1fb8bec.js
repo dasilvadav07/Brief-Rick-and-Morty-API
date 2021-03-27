@@ -118,8 +118,15 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"scriptP2.js":[function(require,module,exports) {
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var cardPerso = document.querySelector(".perso__cards");
 var containerNames = document.querySelector(".perso__names");
+var epPerso = document.querySelector(".perso__ep");
 var urls = ["https://rickandmortyapi.com/api/character", "https://rickandmortyapi.com/api/character/?page=2", "https://rickandmortyapi.com/api/character/?page=3"];
 
 for (var index = 0; index < urls.length; index++) {
@@ -133,25 +140,45 @@ Promise.all(urls.map(function (url) {
     return r.json();
   }));
 }).then(function (data) {
-  // let tabData = [data.results];
-  console.log(data);
-  var tabData = data[0].results.concat(data[1].results, data[2].results);
-  console.log(tabData);
   var tabSpecies = document.getElementsByClassName('species');
 
   var _loop = function _loop(i) {
-    console.log(tabSpecies);
+    // console.log(tabSpecies);
     tabSpecies[i].addEventListener('click', function () {
+      var tabData = data[0].results.concat(data[1].results, data[2].results);
       cardPerso.innerHTML = "";
 
-      for (var perso = 0; perso < tabData.length; perso++) {
-        if (tabData[perso].species == "Human" && i == 0) {
-          imgCard(tabData[perso]);
-        } else if (tabData[perso].species === "Alien" && i == 1) {
-          imgCard(tabData[perso]);
-        } else if (tabData[perso].species != "Human" && tabData[perso].species != "Alien" && i == 2) {
-          imgCard(tabData[perso]);
+      var _iterator = _createForOfIteratorHelper(tabData),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var perso = _step.value;
+
+          if (perso.species == "Human" && i == 0) {
+            createCard(perso);
+            getCharacterDetails(perso);
+            var listUriCharacter = perso.episode; // console.log(perso.episode)    
+
+            getCharacterEpisodes(listUriCharacter, perso);
+          } else if (perso.species === "Alien" && i == 1) {
+            createCard(perso);
+            getCharacterDetails(perso);
+            var _listUriCharacter = perso.episode; // console.log(perso.episode)    
+
+            getCharacterEpisodes(_listUriCharacter, perso);
+          } else if (perso.species != "Human" && perso.species != "Alien" && i == 2) {
+            createCard(perso);
+            getCharacterDetails(perso);
+            var _listUriCharacter2 = perso.episode; // console.log(perso.episode)    
+
+            getCharacterEpisodes(_listUriCharacter2, perso);
+          }
         }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
     });
   };
@@ -159,13 +186,43 @@ Promise.all(urls.map(function (url) {
   for (var i = 0; i < tabSpecies.length; i++) {
     _loop(i);
   }
+}).catch(function (error) {
+  console.error(error);
 });
 
-function imgCard(results) {
-  cardPerso.innerHTML += "<div class=\"container__img--perso\"><img class=\"avatar\" src=\"".concat(results.image, "\"></div>\n        <div class=\"container__button\">\n        <button class=\"button__perso\">").concat(results.name, "</button></div>\n        <div class=\"perso__text\">\n        <span>Status : ").concat(results.status, "</span>\n        <span>Esp\xE8ce : ").concat(results.species, "</span>\n        <span>Type : ").concat(results.type, "</span>\n        <span>Genre : ").concat(results.gender, "</span>\n        <span>Origine : ").concat(results.origin.name, "</span>\n        <span>Dernier lieu : ").concat(results.location.name, "</span>\n        </div>");
+function createCard(character) {
+  cardPerso.innerHTML += "<div class=\"perso__card id=\"perso-".concat(character.id, "\"><div class=\"container__img--perso\"><img class=\"avatar\" src=\"").concat(character.image, "\"></div>\n                <div class=\"container__button\">\n                    <button class=\"button__perso\">").concat(character.name, "</button>\n                </div></div>");
 }
 
-;
+function getCharacterDetails(results) {
+  cardPerso.innerHTML += "<div class=\"perso__details hide\"><span>Status : ".concat(results.status, "</span>\n    <span>Esp\xE8ce : ").concat(results.species, "</span>\n    <span>Type : ").concat(results.type, "</span>\n    <span>Genre : ").concat(results.gender, "</span>\n    <span>Origine : ").concat(results.origin.name, "</span>\n    <span>Dernier lieu : ").concat(results.location.name, "</span>\n    <div id=\"ep-char-").concat(results.id, "\" class=\"ep__number\">Pr\xE9sent dans ").concat(results.episode.length, " \xE9pisode(s).</div><ul id=\"list-ep-").concat(results.id, "\" class=\"listEp\"></ul></div>");
+}
+
+function getCharacterEpisodes(listUriEpisode, results) {
+  var reponse = [];
+
+  var _iterator2 = _createForOfIteratorHelper(listUriEpisode),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var uri = _step2.value;
+      fetch(uri).then(function (response) {
+        // console.log(response.json())           
+        return response.json();
+      }).then(function (ep) {
+        console.log(ep); // reponse.push(ep);
+
+        var ulEp = document.getElementById("list-ep-".concat(results.id));
+        ulEp.innerHTML += "<li class=\"elemList__ep\">".concat(ep.name, "</li>");
+      });
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+}
 },{}],"C:/Users/cmfau/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -194,7 +251,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64080" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49809" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
