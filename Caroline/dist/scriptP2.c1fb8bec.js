@@ -124,9 +124,9 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var cardPerso = document.querySelector(".perso__cards");
-var containerNames = document.querySelector(".perso__names");
-var epPerso = document.querySelector(".perso__ep");
+var cardPerso = document.querySelector(".perso__cards"); // const containerNames = document.querySelector(".perso__names");
+// const epPerso = document.querySelector(".perso__ep")
+
 var urls = ["https://rickandmortyapi.com/api/character", "https://rickandmortyapi.com/api/character/?page=2", "https://rickandmortyapi.com/api/character/?page=3"];
 
 for (var index = 0; index < urls.length; index++) {
@@ -180,6 +180,38 @@ Promise.all(urls.map(function (url) {
       } finally {
         _iterator.f();
       }
+
+      var allCards = document.querySelectorAll(".perso__cards");
+
+      var _loop2 = function _loop2(card) {
+        var btnsPerso = document.querySelectorAll('.button__perso');
+        var cpt = 0;
+        console.log(btnsPerso);
+
+        for (var btn = 0; btn < btnsPerso.length; btn++) {
+          btnsPerso[btn].addEventListener('click', function (event) {
+            //console.log(event.target.parentNode.parentNode.nextElementSibling)
+            var cibleClick = event.target.parentNode.parentNode.nextElementSibling;
+            var currentElement = document.querySelector('.show');
+            cpt++;
+            console.log(cpt, currentElement);
+
+            if (cpt > 1) {
+              cibleClick.classList.remove('hide');
+              cibleClick.classList.add('show');
+              currentElement.classList.remove('show');
+              currentElement.classList.add('hide');
+            } else if (cpt = 1) {
+              cibleClick.classList.remove('hide');
+              cibleClick.classList.add('show');
+            }
+          });
+        }
+      };
+
+      for (var card = 0; card < allCards.length; card++) {
+        _loop2(card);
+      }
     });
   };
 
@@ -191,11 +223,11 @@ Promise.all(urls.map(function (url) {
 });
 
 function createCard(character) {
-  cardPerso.innerHTML += "<div class=\"perso__card id=\"perso-".concat(character.id, "\"><div class=\"container__img--perso\"><img class=\"avatar\" src=\"").concat(character.image, "\"></div>\n                <div class=\"container__button\">\n                    <button class=\"button__perso\">").concat(character.name, "</button>\n                </div></div>");
+  cardPerso.innerHTML += "<div class=\"perso__card id=\"perso-".concat(character.id, "\">\n                                <div class=\"container__img--perso\">\n                                        <img class=\"avatar\" src=\"").concat(character.image, "\">\n                                </div>\n                                <div class=\"container__button\">\n                                    <button class=\"button__perso\" id=\"btnPerso-").concat(character.id, "\">").concat(character.name, "</button>\n                                </div>\n                            </div>");
 }
 
 function getCharacterDetails(results) {
-  cardPerso.innerHTML += "<div class=\"perso__details hide\"><span>Status : ".concat(results.status, "</span>\n    <span>Esp\xE8ce : ").concat(results.species, "</span>\n    <span>Type : ").concat(results.type, "</span>\n    <span>Genre : ").concat(results.gender, "</span>\n    <span>Origine : ").concat(results.origin.name, "</span>\n    <span>Dernier lieu : ").concat(results.location.name, "</span>\n    <div id=\"ep-char-").concat(results.id, "\" class=\"ep__number\">Pr\xE9sent dans ").concat(results.episode.length, " \xE9pisode(s).</div><ul id=\"list-ep-").concat(results.id, "\" class=\"listEp\"></ul></div>");
+  cardPerso.innerHTML += "<div class=\"perso__details hide\" id=\"details-char-".concat(results.id, "\"><span>Status : ").concat(results.status, "</span>\n    <span>Esp\xE8ce : ").concat(results.species, "</span>\n    <span>Type : ").concat(results.type, "</span>\n    <span>Genre : ").concat(results.gender, "</span>\n    <span>Origine : ").concat(results.origin.name, "</span>\n    <span>Dernier lieu : ").concat(results.location.name, "</span>\n    <div id=\"ep-char-").concat(results.id, "\" class=\"ep__number\">Pr\xE9sent dans ").concat(results.episode.length, " \xE9pisode(s).</div><ul id=\"list-ep-").concat(results.id, "\" class=\"listEp\"></ul></div>");
 }
 
 function getCharacterEpisodes(listUriEpisode, results) {
@@ -211,8 +243,8 @@ function getCharacterEpisodes(listUriEpisode, results) {
         // console.log(response.json())           
         return response.json();
       }).then(function (ep) {
-        console.log(ep); // reponse.push(ep);
-
+        // console.log(ep)
+        // reponse.push(ep);
         var ulEp = document.getElementById("list-ep-".concat(results.id));
         ulEp.innerHTML += "<li class=\"elemList__ep\">".concat(ep.name, "</li>");
       });

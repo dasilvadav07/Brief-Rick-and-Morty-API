@@ -11,6 +11,10 @@ body {
   display: none;
 }
 
+.show {
+  display: block;
+}
+
 .container__main--perso {
   color: #daecd8;
 }

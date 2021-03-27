@@ -1,6 +1,6 @@
 const cardPerso = document.querySelector(".perso__cards");
-const containerNames = document.querySelector(".perso__names");
-const epPerso = document.querySelector(".perso__ep")
+// const containerNames = document.querySelector(".perso__names");
+// const epPerso = document.querySelector(".perso__ep")
 
 let urls = ["https://rickandmortyapi.com/api/character", "https://rickandmortyapi.com/api/character/?page=2", "https://rickandmortyapi.com/api/character/?page=3"];
 for (let index = 0; index < urls.length; index++) {
@@ -22,12 +22,10 @@ Promise.all(urls.map(url => fetch(url)))
                     if (perso.species == "Human" && i == 0) {
                         createCard(perso);
                         getCharacterDetails(perso);
-
                         let listUriCharacter = perso.episode;
                         // console.log(perso.episode)    
-
-
                         getCharacterEpisodes(listUriCharacter, perso);
+
 
                     } else if (perso.species === "Alien" && i == 1) {
                         createCard(perso);
@@ -44,16 +42,39 @@ Promise.all(urls.map(url => fetch(url)))
 
                         let listUriCharacter = perso.episode;
                         // console.log(perso.episode)    
-
-
                         getCharacterEpisodes(listUriCharacter, perso);
                     }
+                }
 
+                let allCards = document.querySelectorAll(".perso__cards");
 
+                for (let card = 0; card < allCards.length; card++) {
+                    
+                    let btnsPerso = document.querySelectorAll('.button__perso');
+                    let cpt = 0;
+
+                    console.log(btnsPerso)
+                    for (let btn = 0; btn < btnsPerso.length; btn++) {
+                        btnsPerso[btn].addEventListener('click', event => {
+                            //console.log(event.target.parentNode.parentNode.nextElementSibling)
+                            let cibleClick = event.target.parentNode.parentNode.nextElementSibling;
+                            let currentElement = document.querySelector('.show');
+                            cpt++;
+                            console.log(cpt, currentElement)
+                            if (cpt > 1) {
+                                cibleClick.classList.remove('hide');
+                                cibleClick.classList.add('show');
+                                currentElement.classList.remove('show');
+                                currentElement.classList.add('hide');
+                            } else if (cpt = 1) {
+                                cibleClick.classList.remove('hide');
+                                cibleClick.classList.add('show');
+                            }
+                        })
+                    }
                 }
             })
         }
-
     })
     .catch((error) => {
         console.error(error);
@@ -61,15 +82,19 @@ Promise.all(urls.map(url => fetch(url)))
 
 
 function createCard(character) {
-    cardPerso.innerHTML += `<div class="perso__card id="perso-${character.id}"><div class="container__img--perso"><img class="avatar" src="${character.image}"></div>
-                <div class="container__button">
-                    <button class="button__perso">${character.name}</button>
-                </div></div>`
+    cardPerso.innerHTML += `<div class="perso__card id="perso-${character.id}">
+                                <div class="container__img--perso">
+                                        <img class="avatar" src="${character.image}">
+                                </div>
+                                <div class="container__button">
+                                    <button class="button__perso" id="btnPerso-${character.id}">${character.name}</button>
+                                </div>
+                            </div>`
 }
 
 function getCharacterDetails(results) {
 
-    cardPerso.innerHTML += `<div class="perso__details hide"><span>Status : ${results.status}</span>
+    cardPerso.innerHTML += `<div class="perso__details hide" id="details-char-${results.id}"><span>Status : ${results.status}</span>
     <span>Espèce : ${results.species}</span>
     <span>Type : ${results.type}</span>
     <span>Genre : ${results.gender}</span>
@@ -87,11 +112,12 @@ function getCharacterEpisodes(listUriEpisode, results) {
                 // console.log(response.json())           
                 return response.json()
             }).then((ep) => {
-                console.log(ep)
+                // console.log(ep)
                 // reponse.push(ep);
                 let ulEp = document.getElementById(`list-ep-${results.id}`)
                 ulEp.innerHTML += `<li class="elemList__ep">${ep.name}</li>`
             })
     }
 }
+
 
