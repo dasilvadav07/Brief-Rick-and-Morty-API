@@ -127,7 +127,9 @@ Promise.all(urls.map(url => fetch(url)))
                     let objetEpisodeClicked = tab.filter(x => x.id == ep[i].id)[0];
                     let chara = document.querySelector(".characters");
                     const mainContainer = document.querySelector(".main");
-                    //mainContainer.classList.toggle("slide-right");
+                    mainContainer.classList.toggle("slide-right");
+                    let footer = document.querySelector(".footer");
+                      footer.classList.toggle("slide-right");
                     chara.innerHTML = "";
                     chara.classList.toggle("popup");
                     for (const character of objetEpisodeClicked.characters) {
@@ -147,6 +149,9 @@ Promise.all(urls.map(url => fetch(url)))
                     chara.innerHTML = "";
                     chara.classList.add("popup");
                     chara.classList.toggle("popup");
+                    mainContainer.classList.remove("slide-right");
+                    let footer = document.querySelector(".footer");
+                      footer.classList.remove("slide-right");
                 mainContainer.innerHTML = "";
                 for (let i = 0; i < tab.length; i++) {
                     //console.log(tabResult[i].episode);
@@ -173,6 +178,8 @@ Promise.all(urls.map(url => fetch(url)))
                       let objetEpisodeClicked = tab.filter(x => x.id == ep[i].id)[0];
                       const mainContainer = document.querySelector(".main");
                       mainContainer.classList.toggle("slide-right");
+                      let footer = document.querySelector(".footer");
+                      footer.classList.toggle("slide-right");
                       let chara = document.querySelector(".characters");
                       chara.innerHTML = "";
                       chara.classList.toggle("popup");

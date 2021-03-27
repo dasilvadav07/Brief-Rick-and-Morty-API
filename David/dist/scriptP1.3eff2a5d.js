@@ -259,8 +259,10 @@ Promise.all(urls.map(function (url) {
         return x.id == ep[_i2].id;
       })[0];
       var chara = document.querySelector(".characters");
-      var mainContainer = document.querySelector(".main"); //mainContainer.classList.toggle("slide-right");
-
+      var mainContainer = document.querySelector(".main");
+      mainContainer.classList.toggle("slide-right");
+      var footer = document.querySelector(".footer");
+      footer.classList.toggle("slide-right");
       chara.innerHTML = "";
       chara.classList.toggle("popup");
 
@@ -296,6 +298,9 @@ Promise.all(urls.map(function (url) {
     chara.innerHTML = "";
     chara.classList.add("popup");
     chara.classList.toggle("popup");
+    mainContainer.classList.remove("slide-right");
+    var footer = document.querySelector(".footer");
+    footer.classList.remove("slide-right");
     mainContainer.innerHTML = "";
 
     for (var _i3 = 0; _i3 < tab.length; _i3++) {
@@ -326,6 +331,8 @@ Promise.all(urls.map(function (url) {
         })[0];
         var mainContainer = document.querySelector(".main");
         mainContainer.classList.toggle("slide-right");
+        var footer = document.querySelector(".footer");
+        footer.classList.toggle("slide-right");
         var chara = document.querySelector(".characters");
         chara.innerHTML = "";
         chara.classList.toggle("popup");
@@ -434,7 +441,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53896" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52613" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
