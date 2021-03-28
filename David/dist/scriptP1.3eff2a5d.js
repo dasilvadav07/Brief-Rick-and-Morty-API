@@ -218,6 +218,24 @@ tabFetch[j].then(function (res) {
 
 }
 */
+var menuBtn = document.querySelector("#menu-mobile");
+var firstBar = document.querySelector("#menu-mobile span:first-child");
+var secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
+var thirdBar = document.querySelector("#menu-mobile span:last-child");
+var navMobile = document.querySelector(".nav__mobile");
+menuBtn.addEventListener("click", function () {
+  if (firstBar.classList.contains("transition")) {
+    firstBar.classList.remove("transition");
+    secondBar.classList.remove("transition2");
+    thirdBar.classList.remove("transition3");
+    navMobile.classList.remove("appear");
+  } else {
+    firstBar.classList.add("transition");
+    secondBar.classList.add("transition2");
+    thirdBar.classList.add("transition3");
+    navMobile.classList.add("appear");
+  }
+});
 var urls = ["https://rickandmortyapi.com/api/episode", "https://rickandmortyapi.com/api/episode?page=2", "https://rickandmortyapi.com/api/episode?page=3"];
 
 for (var i = 0; i < urls.length; i++) {
@@ -441,7 +459,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51331" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52842" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
