@@ -14,6 +14,8 @@ Promise.all(urls.map(url => fetch(url)))
         for (let i = 0; i < tabSpecies.length; i++) {
             // console.log(tabSpecies);
             tabSpecies[i].addEventListener('click', () => {
+                let imgHomePerso = document.querySelector('.img__perso')
+                imgHomePerso.classList.add('hide');
 
                 let tabData = data[0].results.concat(data[1].results, data[2].results);
                 cardPerso.innerHTML = "";
@@ -94,12 +96,12 @@ function createCard(character) {
 
 function getCharacterDetails(results) {
 
-    cardPerso.innerHTML += `<div class="perso__details hide" id="details-char-${results.id}"><span>Status : ${results.status}</span>
-    <span>Espèce : ${results.species}</span>
-    <span>Type : ${results.type}</span>
-    <span>Genre : ${results.gender}</span>
-    <span>Origine : ${results.origin.name}</span>
-    <span>Dernier lieu : ${results.location.name}</span>
+    cardPerso.innerHTML += `<div class="perso__details hide" id="details-char-${results.id}"><div>Status : ${results.status}</div>
+    <div>Espèce : ${results.species}</div>
+    <div>Type : ${results.type}</div>
+    <div>Genre : ${results.gender}</div>
+    <div>Origine : ${results.origin.name}</div>
+    <div>Dernier lieu : ${results.location.name}</div>
     <div id="ep-char-${results.id}" class="ep__number">Présent dans ${results.episode.length} épisode(s).</div><ul id="list-ep-${results.id}" class="listEp"></ul></div>`
 }
 

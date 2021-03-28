@@ -145,6 +145,8 @@ Promise.all(urls.map(function (url) {
   var _loop = function _loop(i) {
     // console.log(tabSpecies);
     tabSpecies[i].addEventListener('click', function () {
+      var imgHomePerso = document.querySelector('.img__perso');
+      imgHomePerso.classList.add('hide');
       var tabData = data[0].results.concat(data[1].results, data[2].results);
       cardPerso.innerHTML = "";
 
@@ -227,7 +229,7 @@ function createCard(character) {
 }
 
 function getCharacterDetails(results) {
-  cardPerso.innerHTML += "<div class=\"perso__details hide\" id=\"details-char-".concat(results.id, "\"><span>Status : ").concat(results.status, "</span>\n    <span>Esp\xE8ce : ").concat(results.species, "</span>\n    <span>Type : ").concat(results.type, "</span>\n    <span>Genre : ").concat(results.gender, "</span>\n    <span>Origine : ").concat(results.origin.name, "</span>\n    <span>Dernier lieu : ").concat(results.location.name, "</span>\n    <div id=\"ep-char-").concat(results.id, "\" class=\"ep__number\">Pr\xE9sent dans ").concat(results.episode.length, " \xE9pisode(s).</div><ul id=\"list-ep-").concat(results.id, "\" class=\"listEp\"></ul></div>");
+  cardPerso.innerHTML += "<div class=\"perso__details hide\" id=\"details-char-".concat(results.id, "\"><div>Status : ").concat(results.status, "</div>\n    <div>Esp\xE8ce : ").concat(results.species, "</div>\n    <div>Type : ").concat(results.type, "</div>\n    <div>Genre : ").concat(results.gender, "</div>\n    <div>Origine : ").concat(results.origin.name, "</div>\n    <div>Dernier lieu : ").concat(results.location.name, "</div>\n    <div id=\"ep-char-").concat(results.id, "\" class=\"ep__number\">Pr\xE9sent dans ").concat(results.episode.length, " \xE9pisode(s).</div><ul id=\"list-ep-").concat(results.id, "\" class=\"listEp\"></ul></div>");
 }
 
 function getCharacterEpisodes(listUriEpisode, results) {
@@ -283,7 +285,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49809" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64744" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
