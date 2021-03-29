@@ -117,26 +117,130 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"script.js":[function(require,module,exports) {
-var menuBtn = document.querySelector("#menu-mobile");
-var firstBar = document.querySelector("#menu-mobile span:first-child");
-var secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
-var thirdBar = document.querySelector("#menu-mobile span:last-child");
-var navMobile = document.querySelector(".nav__mobile");
-menuBtn.addEventListener("click", function () {
-  if (firstBar.classList.contains("transition")) {
-    firstBar.classList.remove("transition");
-    secondBar.classList.remove("transition2");
-    thirdBar.classList.remove("transition3");
-    navMobile.classList.remove("appear");
-  } else {
-    firstBar.classList.add("transition");
-    secondBar.classList.add("transition2");
-    thirdBar.classList.add("transition3");
-    navMobile.classList.add("appear");
+})({"scriptP3.js":[function(require,module,exports) {
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var tabUrlsLocation = ["https://rickandmortyapi.com/api/location?", "https://rickandmortyapi.com/api/location?page=2", "https://rickandmortyapi.com/api/location?page=3", "https://rickandmortyapi.com/api/location?page=4", "https://rickandmortyapi.com/api/location?page=5", "https://rickandmortyapi.com/api/location?page=6"];
+
+for (var iurl = 0; iurl < tabUrlsLocation.length; iurl++) {
+  var urlLocation = tabUrlsLocation[iurl];
+}
+
+Promise.all(tabUrlsLocation.map(function (urlLocation) {
+  return fetch(urlLocation);
+})).then(function (resp) {
+  return Promise.all(resp.map(function (r) {
+    return r.json();
+  }));
+}).then(function (data) {
+  var placeType = document.getElementsByClassName('type');
+
+  var _loop = function _loop(i) {
+    placeType[i].addEventListener('click', function () {
+      // let tabLieux = data.results
+      var tabLieux = data[0].results.concat(data[1].results, data[2].results, data[3].results, data[4].results, data[5].results);
+      var imgHomePlace = document.querySelector('.containerImage');
+      imgHomePlace.classList.add('hide');
+      var location = document.querySelector('.cardPlace');
+      location.innerHTML = " ";
+
+      var _iterator = _createForOfIteratorHelper(tabLieux),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var index = _step.value;
+          var listUriResidents = index.residents;
+
+          if (i == 0 && index.type == 'Planet') {
+            card(index); // console.log(index);
+
+            getResidentsDetails(listUriResidents, index); // console.log("liste:",listUriResidents)
+          } else if (i == 1 && index.type == 'Space station') {
+            card(index); // console.log(index);
+
+            getResidentsDetails(listUriResidents, index); // console.log("liste2 :", listUriResidents)
+          } else if (i == 2 && index.type != 'Planet' && index.type != 'Space station') {
+            card(index); // console.log(index);
+
+            getResidentsDetails(listUriResidents, index); //console.log("liste3 :", listUriResidents)
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      var bt = document.getElementsByClassName('buttonName'); // let divResidents = document.getElementsByClassName('hide');
+
+      console.log(bt);
+      var cpt = 0;
+
+      for (var j = 0; j < bt.length; j++) {
+        console.log(bt[j]);
+        bt[j].addEventListener('click', function (event) {
+          var cible = event.target.nextElementSibling;
+          cible.classList.remove('hide');
+          var currentElement = document.querySelector('.show');
+          cpt++; //console.log(cpt, currentElement)
+
+          if (cpt > 1) {
+            cible.classList.remove('hide');
+            cible.classList.add('show');
+            currentElement.classList.remove('show');
+            currentElement.classList.add('hide');
+          } else if (cpt = 1) {
+            cible.classList.remove('hide');
+            cible.classList.add('show');
+          }
+        });
+      } //console.log('click', event.target.nextElementSibling)
+
+    });
+  };
+
+  for (var i = 0; i < placeType.length; i++) {
+    _loop(i);
   }
+}).catch(function (error) {
+  console.error(error);
 });
-},{}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+function card(results) {
+  // const imgPlace = document.getElementsByClassName('containerImgLieux');
+  // imgPlace.innerHTML+=
+  // ` <img src="${infoLocation.url}">`
+  var location = document.querySelector('.cardPlace');
+  location.innerHTML += "<div class=\"containerInfoLieux\" id=\"idplace-".concat(results.id, "\">\n     <div class=\"id\">").concat(results.id, "</div>\n     <div class=\"name\">").concat(results.name, "</div>\n     <div class=\"type\">").concat(results.type, "</div>\n     <div class=\"dimension\">").concat(results.dimension, "</div>\n     <div class=\"created\">").concat(results.created, "</div>\n     </div>\n     <button class=\"buttonName\">Residents</button><div class=\"divp hide\" id=\"persoName-").concat(results.id, "\"></div>");
+}
+
+function getResidentsDetails(listUriResidents, results) {
+  var _iterator2 = _createForOfIteratorHelper(listUriResidents),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var uri = _step2.value;
+      fetch(uri).then(function (response) {
+        return response.json();
+      }).then(function (resp2) {
+        // console.log(resp2)
+        var divResidents = document.querySelector("#persoName-".concat(results.id));
+        divResidents.innerHTML += "<p class=\"p\" > ".concat(resp2.name, " </p>");
+      });
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+}
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -164,7 +268,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52720" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61618" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -195,9 +299,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
+      } else {
+        window.location.reload();
       }
     }
 
@@ -340,5 +443,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
-//# sourceMappingURL=/script.75da7f30.js.map
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","scriptP3.js"], null)
+//# sourceMappingURL=/scriptP3.739eb583.js.map
