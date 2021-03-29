@@ -296,7 +296,7 @@ body {
     height: 60vh;
   }
   body .container__main--perso .img__perso--desktop img {
-    width: auto;
+    width: autop;
     height: 100%;
   }
   body .container__main--perso .img__perso--mobile {

@@ -274,6 +274,8 @@ body {
 @media all and (min-width : 700px) {
     body {
 
+    
+
         .header__mobile{
             display: none;
         }
@@ -317,7 +319,7 @@ body {
                 height: 60vh;
 
                 img {
-                    width: auto;
+                    width: autop;
                     height: 100%;
                 }
             }

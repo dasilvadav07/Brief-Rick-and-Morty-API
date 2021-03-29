@@ -163,8 +163,10 @@ Promise.all(urls.map(function (url) {
   var _loop = function _loop(i) {
     // console.log(tabSpecies);
     tabSpecies[i].addEventListener('click', function () {
-      var imgHomePerso = document.querySelector('.img__perso');
-      imgHomePerso.classList.add('hide');
+      var imgHomePersoMob = document.querySelector('.imgMob');
+      var imgHomePersoDes = document.querySelector('.imgDes');
+      imgHomePersoMob.classList.add('hide');
+      imgHomePersoDes.style.display = 'none';
       var tabData = data[0].results.concat(data[1].results, data[2].results);
       cardPerso.innerHTML = "";
 
@@ -303,7 +305,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62365" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64696" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

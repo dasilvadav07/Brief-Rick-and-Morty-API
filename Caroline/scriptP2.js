@@ -35,8 +35,10 @@ Promise.all(urls.map(url => fetch(url)))
         for (let i = 0; i < tabSpecies.length; i++) {
             // console.log(tabSpecies);
             tabSpecies[i].addEventListener('click', () => {
-                let imgHomePerso = document.querySelector('.img__perso')
-                imgHomePerso.classList.add('hide');
+                let imgHomePersoMob = document.querySelector('.imgMob')
+                let imgHomePersoDes = document.querySelector('.imgDes')
+                imgHomePersoMob.classList.add('hide');
+                imgHomePersoDes.style.display = 'none';
 
                 let tabData = data[0].results.concat(data[1].results, data[2].results);
                 cardPerso.innerHTML = "";
