@@ -117,13 +117,107 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"scriptP2.js":[function(require,module,exports) {
+})({"../David/scriptP1.js":[function(require,module,exports) {
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+/*
+fetch("https://rickandmortyapi.com/api/episode")
+    .then(function (res) {
+        return res.json();
+    })
+    .then(function (data) {        
+        console.log(data);
+        */
+
+/*
+let select = document.querySelector("#season");
+let tabResult = data.results;
+const mainContainer = document.querySelector(".main");
+    //console.log(select);
+    select.addEventListener("change", (e) =>{
+        let season = e.target.value;
+        console.log(season);
+        console.log(tabResult);
+        mainContainer.innerHTML = "";
+        for (let i = 0; i < tabResult.length; i++) {
+            //console.log(tabResult[i].episode);
+            let splitSeason = tabResult[i].episode.split("");
+            console.log(splitSeason[2]);
+            if (season == "s1" && splitSeason[2] == 1) {
+                addNewCard(tabResult[i]);
+            }
+            else if (season == "s2" && splitSeason[2] == 2) {
+                addNewCard(tabResult[i]);
+            }
+        }
+            //console.log(splitSeason);
+      })
+      */
+
+/*})
+
+.catch(function (error) {
+   console.error(error);
+})  */
+
+/*
+fetch("https://rickandmortyapi.com/api/episode?page=2")
+    .then(function (resp) {
+        return resp.json();
+    })
+    .then(function(data2){
+        console.log(data2);
+    })
+    */
+
+/*
+let tabFetch = [fetch("https://rickandmortyapi.com/api/episode"), fetch("https://rickandmortyapi.com/api/episode?page=2"), fetch("https://rickandmortyapi.com/api/episode?page=3")]
+for (let j = 0; j < tabFetch.length; j++) {
+tabFetch[j].then(function (res) {
+    return res.json();
+})
+.then(function (data) {        
+    let tabData = [data.results];
+    //console.log(tabData[0]);
+    for (let i = 0; i < tabData.length; i++) {
+        //console.log(tabData[0]);
+        for (let j = 0; j < tabData[i].length; j++) {
+            //console.log(tabData[i][j]);
+            let select = document.querySelector("#season");
+            const mainContainer = document.querySelector(".main");
+            let allDataResults = (tabData[i])[j];
+            //console.log(allDataResults.episode);
+            select.addEventListener("change", (e) =>{
+                let season = e.target.value;
+                let splitSeason = allDataResults.episode.split("");
+                //console.log(splitSeason[2]);
+                //mainContainer.innerHTML = "";
+                //console.log(splitSeason);
+                if (season == "s1" && splitSeason[2] == 1) {
+                    //console.log(allDataResults);
+                    addNewCard(allDataResults);
+                } else if (season == "s2" && splitSeason[2] == 2) {
+                    addNewCard(allDataResults);
+                } else if (season == "s3" && splitSeason[2] == 3) {
+                    addNewCard(allDataResults);
+                } else if (season == "s4" && splitSeason[2] == 4) {
+                    addNewCard(allDataResults);
+                } 
+            })
+        }
+    }
+    
+ })
+.catch(function (error) {
+    console.error(error);
+})
+
+}
+*/
 var menuBtn = document.querySelector("#menu-mobile");
 var firstBar = document.querySelector("#menu-mobile span:first-child");
 var secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
@@ -142,13 +236,10 @@ menuBtn.addEventListener("click", function () {
     navMobile.classList.add("appear");
   }
 });
-var cardPerso = document.querySelector(".perso__cards"); // const containerNames = document.querySelector(".perso__names");
-// const epPerso = document.querySelector(".perso__ep")
+var urls = ["https://rickandmortyapi.com/api/episode", "https://rickandmortyapi.com/api/episode?page=2", "https://rickandmortyapi.com/api/episode?page=3"];
 
-var urls = ["https://rickandmortyapi.com/api/character", "https://rickandmortyapi.com/api/character/?page=2", "https://rickandmortyapi.com/api/character/?page=3"];
-
-for (var index = 0; index < urls.length; index++) {
-  var url = urls[index];
+for (var i = 0; i < urls.length; i++) {
+  var url = urls[i];
 }
 
 Promise.all(urls.map(function (url) {
@@ -158,125 +249,188 @@ Promise.all(urls.map(function (url) {
     return r.json();
   }));
 }).then(function (data) {
-  var tabSpecies = document.getElementsByClassName('species');
+  //console.log(data);
+  for (var j = 0; j < data.length; j++) {//console.log(data[j].results);
+  }
 
-  var _loop = function _loop(i) {
-    // console.log(tabSpecies);
-    tabSpecies[i].addEventListener('click', function () {
-      var imgHomePersoMob = document.querySelector('.imgMob');
-      var imgHomePersoDes = document.querySelector('.imgDes');
-      imgHomePersoMob.classList.add('hide');
-      imgHomePersoDes.style.display = 'none';
-      var tabData = data[0].results.concat(data[1].results, data[2].results);
-      cardPerso.innerHTML = "";
+  var tab = data[0].results.concat(data[1].results, data[2].results); //console.log(tab);
 
-      var _iterator = _createForOfIteratorHelper(tabData),
-          _step;
+  var select = document.querySelector("#season");
+  var mainContainer = document.querySelector(".main"); //console.log(select);
+
+  for (var _i = 0; _i < tab.length; _i++) {
+    //console.log(tabResult[i].episode);
+    var splitSeason = tab[_i].episode.split(""); //console.log(splitSeason[2]);
+
+
+    if (splitSeason[2] == 1) {
+      addNewCard(tab[_i]);
+    }
+  }
+
+  var ep = document.querySelectorAll(".card--name");
+
+  var _loop = function _loop(_i2) {
+    ep[_i2].addEventListener('click', function (e) {
+      //console.log(tab.filter(x => x.id == ep[i].id));
+      var objetEpisodeClicked = tab.filter(function (x) {
+        return x.id == ep[_i2].id;
+      })[0];
+      var chara = document.querySelector(".characters");
+      var mainContainer = document.querySelector(".main");
+      mainContainer.classList.toggle("slide-right");
+      var footer = document.querySelector(".footer");
+      footer.classList.toggle("slide-right");
+      chara.innerHTML = "";
+      chara.classList.toggle("popup");
+
+      var _iterator2 = _createForOfIteratorHelper(objetEpisodeClicked.characters),
+          _step2;
 
       try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var perso = _step.value;
-
-          if (perso.species == "Human" && i == 0) {
-            createCard(perso);
-            getCharacterDetails(perso);
-            var listUriCharacter = perso.episode; // console.log(perso.episode)    
-
-            getCharacterEpisodes(listUriCharacter, perso);
-          } else if (perso.species === "Alien" && i == 1) {
-            createCard(perso);
-            getCharacterDetails(perso);
-            var _listUriCharacter = perso.episode; // console.log(perso.episode)    
-
-            getCharacterEpisodes(_listUriCharacter, perso);
-          } else if (perso.species != "Human" && perso.species != "Alien" && i == 2) {
-            createCard(perso);
-            getCharacterDetails(perso);
-            var _listUriCharacter2 = perso.episode; // console.log(perso.episode)    
-
-            getCharacterEpisodes(_listUriCharacter2, perso);
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      var allCards = document.querySelectorAll(".perso__cards");
-
-      var _loop2 = function _loop2(card) {
-        var btnsPerso = document.querySelectorAll('.button__perso');
-        var cpt = 0;
-        console.log(btnsPerso);
-
-        for (var btn = 0; btn < btnsPerso.length; btn++) {
-          btnsPerso[btn].addEventListener('click', function (event) {
-            //console.log(event.target.parentNode.parentNode.nextElementSibling)
-            var cibleClick = event.target.parentNode.parentNode.nextElementSibling;
-            var currentElement = document.querySelector('.show');
-            cpt++;
-            console.log(cpt, currentElement);
-
-            if (cpt > 1) {
-              cibleClick.classList.remove('hide');
-              cibleClick.classList.add('show');
-              currentElement.classList.remove('show');
-              currentElement.classList.add('hide');
-            } else if (cpt = 1) {
-              cibleClick.classList.remove('hide');
-              cibleClick.classList.add('show');
-            }
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var character = _step2.value;
+          fetch(character).then(function (resp) {
+            return resp.json();
+          }).then(function (respJson) {
+            console.log(respJson);
+            chara.innerHTML += "<li class=\"description\"><img src=\"".concat(respJson.image, "\"/>").concat(respJson.name, "</li>");
           });
         }
-      };
-
-      for (var card = 0; card < allCards.length; card++) {
-        _loop2(card);
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
       }
     });
   };
 
-  for (var i = 0; i < tabSpecies.length; i++) {
-    _loop(i);
+  for (var _i2 = 0; _i2 < ep.length; _i2++) {
+    _loop(_i2);
   }
-}).catch(function (error) {
-  console.error(error);
-});
 
-function createCard(character) {
-  cardPerso.innerHTML += "<div class=\"perso__card id=\"perso-".concat(character.id, "\">\n                                <div class=\"container__img--perso\">\n                                        <img class=\"avatar\" src=\"").concat(character.image, "\">\n                                </div>\n                                <div class=\"container__button\">\n                                    <button class=\"button__perso\" id=\"btnPerso-").concat(character.id, "\">").concat(character.name, "</button>\n                                </div>\n                            </div>");
-}
+  select.addEventListener("change", function (e) {
+    var season = e.target.value; //console.log(season);
 
-function getCharacterDetails(results) {
-  cardPerso.innerHTML += "<div class=\"perso__details hide\" id=\"details-char-".concat(results.id, "\"><div>Status : ").concat(results.status, "</div>\n    <div>Esp\xE8ce : ").concat(results.species, "</div>\n    <div>Type : ").concat(results.type, "</div>\n    <div>Genre : ").concat(results.gender, "</div>\n    <div>Origine : ").concat(results.origin.name, "</div>\n    <div>Dernier lieu : ").concat(results.location.name, "</div>\n    <div id=\"ep-char-").concat(results.id, "\" class=\"ep__number\">Pr\xE9sent dans ").concat(results.episode.length, " \xE9pisode(s).</div><ul id=\"list-ep-").concat(results.id, "\" class=\"listEp\"></ul></div>");
-}
+    var chara = document.querySelector(".characters");
+    chara.innerHTML = "";
+    chara.classList.add("popup");
+    chara.classList.toggle("popup");
+    mainContainer.classList.remove("slide-right");
+    var footer = document.querySelector(".footer");
+    footer.classList.remove("slide-right");
+    mainContainer.innerHTML = "";
 
-function getCharacterEpisodes(listUriEpisode, results) {
-  var reponse = [];
+    for (var _i3 = 0; _i3 < tab.length; _i3++) {
+      //console.log(tabResult[i].episode);
+      var _splitSeason = tab[_i3].episode.split(""); //console.log(splitSeason[2]);
 
-  var _iterator2 = _createForOfIteratorHelper(listUriEpisode),
-      _step2;
 
-  try {
-    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-      var uri = _step2.value;
-      fetch(uri).then(function (response) {
-        // console.log(response.json())           
-        return response.json();
-      }).then(function (ep) {
-        // console.log(ep)
-        // reponse.push(ep);
-        var ulEp = document.getElementById("list-ep-".concat(results.id));
-        ulEp.innerHTML += "<li class=\"elemList__ep\">".concat(ep.name, "</li>");
-      });
+      if (season == "s1" && _splitSeason[2] == 1) {
+        addNewCard(tab[_i3]);
+      } else if (season == "s2" && _splitSeason[2] == 2) {
+        addNewCard(tab[_i3]);
+      } else if (season == "s3" && _splitSeason[2] == 3) {
+        addNewCard(tab[_i3]);
+      } else if (season == "s4" && _splitSeason[2] == 4) {
+        addNewCard(tab[_i3]);
+      }
     }
-  } catch (err) {
-    _iterator2.e(err);
-  } finally {
-    _iterator2.f();
-  }
+
+    var ep = document.querySelectorAll(".card--name");
+
+    var _loop2 = function _loop2(_i4) {
+      ep[_i4].addEventListener('click', function (e) {
+        console.log(tab.filter(function (x) {
+          return x.id == ep[_i4].id;
+        }));
+        var objetEpisodeClicked = tab.filter(function (x) {
+          return x.id == ep[_i4].id;
+        })[0];
+        var mainContainer = document.querySelector(".main");
+        mainContainer.classList.toggle("slide-right");
+        var footer = document.querySelector(".footer");
+        footer.classList.toggle("slide-right");
+        var chara = document.querySelector(".characters");
+        chara.innerHTML = "";
+        chara.classList.toggle("popup");
+        /*chara.classList.remove("close");*/
+
+        var _iterator = _createForOfIteratorHelper(objetEpisodeClicked.characters),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var character = _step.value;
+            fetch(character).then(function (resp) {
+              return resp.json();
+            }).then(function (respJson) {
+              //console.log(respJson);
+              chara.innerHTML += "<li class=\"description\"><img src=\"".concat(respJson.image, "\"/>").concat(respJson.name, "</li>");
+            });
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      });
+    };
+
+    for (var _i4 = 0; _i4 < ep.length; _i4++) {
+      _loop2(_i4);
+    }
+  });
+});
+/*let chara = document.querySelector(".characters");
+let cross = document.getElementById("close-popup");
+cross.addEventListener("click", function(event) {
+    if (event.target == chara) {
+        chara.style.display="none";
+    }
+})*/
+
+function addNewCard(episodes) {
+  var mainContainer = document.querySelector(".main");
+  mainContainer.innerHTML += "<div class=\"card\">\n          <span class=\"card--name\" id=\"".concat(episodes.id, "\">").concat(episodes.name, "</span>\n          <button class=\"button\">").concat(episodes.episode, "</button>\n\n        </div>");
 }
+/*
+let describ = document.querySelectorAll(".description");
+for (let index = 0; index < describ.length; index++) {
+    console.log(describ[0]);
+    //for (const div of describ) {
+      //  div.innerHTML += respJson.name;
+    //}
+}*/
+//describ.innerHTML += respJson.name
+
+/*
+function getEpisodeDetails(listUri, divEp) {
+    let reponse = [];
+  
+    for (const uri of listUri) {
+      fetch(uri).then((resp)=> {
+        return resp.json()
+      }).then((resp2)=> {
+        console.log(resp2.id)
+        reponse.push(resp2);
+        divEp.innerHTML += `<span> ${resp2.name} </span>`
+      })
+    }
+}
+*/
+
+/*
+function cardDescription(episodes) {
+    const mainContainer = document.querySelector(".main");
+    mainContainer.innerHTML +=
+    `<div class="card--description">
+    <div claas="card--perso">
+    <img src="${episodes.characters}" alt="characters from rick and morty">
+    </div>
+    </div>`   
+}
+*/
 },{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -481,5 +635,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","scriptP2.js"], null)
-//# sourceMappingURL=/scriptP2.c1fb8bec.js.map
+},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../David/scriptP1.js"], null)
+//# sourceMappingURL=/scriptP1.5644ece5.js.map

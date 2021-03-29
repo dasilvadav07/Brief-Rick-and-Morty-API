@@ -117,13 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"scriptP2.js":[function(require,module,exports) {
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+})({"../script.js":[function(require,module,exports) {
 var menuBtn = document.querySelector("#menu-mobile");
 var firstBar = document.querySelector("#menu-mobile span:first-child");
 var secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
@@ -142,141 +136,6 @@ menuBtn.addEventListener("click", function () {
     navMobile.classList.add("appear");
   }
 });
-var cardPerso = document.querySelector(".perso__cards"); // const containerNames = document.querySelector(".perso__names");
-// const epPerso = document.querySelector(".perso__ep")
-
-var urls = ["https://rickandmortyapi.com/api/character", "https://rickandmortyapi.com/api/character/?page=2", "https://rickandmortyapi.com/api/character/?page=3"];
-
-for (var index = 0; index < urls.length; index++) {
-  var url = urls[index];
-}
-
-Promise.all(urls.map(function (url) {
-  return fetch(url);
-})).then(function (resp) {
-  return Promise.all(resp.map(function (r) {
-    return r.json();
-  }));
-}).then(function (data) {
-  var tabSpecies = document.getElementsByClassName('species');
-
-  var _loop = function _loop(i) {
-    // console.log(tabSpecies);
-    tabSpecies[i].addEventListener('click', function () {
-      var imgHomePersoMob = document.querySelector('.imgMob');
-      var imgHomePersoDes = document.querySelector('.imgDes');
-      imgHomePersoMob.classList.add('hide');
-      imgHomePersoDes.style.display = 'none';
-      var tabData = data[0].results.concat(data[1].results, data[2].results);
-      cardPerso.innerHTML = "";
-
-      var _iterator = _createForOfIteratorHelper(tabData),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var perso = _step.value;
-
-          if (perso.species == "Human" && i == 0) {
-            createCard(perso);
-            getCharacterDetails(perso);
-            var listUriCharacter = perso.episode; // console.log(perso.episode)    
-
-            getCharacterEpisodes(listUriCharacter, perso);
-          } else if (perso.species === "Alien" && i == 1) {
-            createCard(perso);
-            getCharacterDetails(perso);
-            var _listUriCharacter = perso.episode; // console.log(perso.episode)    
-
-            getCharacterEpisodes(_listUriCharacter, perso);
-          } else if (perso.species != "Human" && perso.species != "Alien" && i == 2) {
-            createCard(perso);
-            getCharacterDetails(perso);
-            var _listUriCharacter2 = perso.episode; // console.log(perso.episode)    
-
-            getCharacterEpisodes(_listUriCharacter2, perso);
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      var allCards = document.querySelectorAll(".perso__cards");
-
-      var _loop2 = function _loop2(card) {
-        var btnsPerso = document.querySelectorAll('.button__perso');
-        var cpt = 0;
-        console.log(btnsPerso);
-
-        for (var btn = 0; btn < btnsPerso.length; btn++) {
-          btnsPerso[btn].addEventListener('click', function (event) {
-            //console.log(event.target.parentNode.parentNode.nextElementSibling)
-            var cibleClick = event.target.parentNode.parentNode.nextElementSibling;
-            var currentElement = document.querySelector('.show');
-            cpt++;
-            console.log(cpt, currentElement);
-
-            if (cpt > 1) {
-              cibleClick.classList.remove('hide');
-              cibleClick.classList.add('show');
-              currentElement.classList.remove('show');
-              currentElement.classList.add('hide');
-            } else if (cpt = 1) {
-              cibleClick.classList.remove('hide');
-              cibleClick.classList.add('show');
-            }
-          });
-        }
-      };
-
-      for (var card = 0; card < allCards.length; card++) {
-        _loop2(card);
-      }
-    });
-  };
-
-  for (var i = 0; i < tabSpecies.length; i++) {
-    _loop(i);
-  }
-}).catch(function (error) {
-  console.error(error);
-});
-
-function createCard(character) {
-  cardPerso.innerHTML += "<div class=\"perso__card id=\"perso-".concat(character.id, "\">\n                                <div class=\"container__img--perso\">\n                                        <img class=\"avatar\" src=\"").concat(character.image, "\">\n                                </div>\n                                <div class=\"container__button\">\n                                    <button class=\"button__perso\" id=\"btnPerso-").concat(character.id, "\">").concat(character.name, "</button>\n                                </div>\n                            </div>");
-}
-
-function getCharacterDetails(results) {
-  cardPerso.innerHTML += "<div class=\"perso__details hide\" id=\"details-char-".concat(results.id, "\"><div>Status : ").concat(results.status, "</div>\n    <div>Esp\xE8ce : ").concat(results.species, "</div>\n    <div>Type : ").concat(results.type, "</div>\n    <div>Genre : ").concat(results.gender, "</div>\n    <div>Origine : ").concat(results.origin.name, "</div>\n    <div>Dernier lieu : ").concat(results.location.name, "</div>\n    <div id=\"ep-char-").concat(results.id, "\" class=\"ep__number\">Pr\xE9sent dans ").concat(results.episode.length, " \xE9pisode(s).</div><ul id=\"list-ep-").concat(results.id, "\" class=\"listEp\"></ul></div>");
-}
-
-function getCharacterEpisodes(listUriEpisode, results) {
-  var reponse = [];
-
-  var _iterator2 = _createForOfIteratorHelper(listUriEpisode),
-      _step2;
-
-  try {
-    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-      var uri = _step2.value;
-      fetch(uri).then(function (response) {
-        // console.log(response.json())           
-        return response.json();
-      }).then(function (ep) {
-        // console.log(ep)
-        // reponse.push(ep);
-        var ulEp = document.getElementById("list-ep-".concat(results.id));
-        ulEp.innerHTML += "<li class=\"elemList__ep\">".concat(ep.name, "</li>");
-      });
-    }
-  } catch (err) {
-    _iterator2.e(err);
-  } finally {
-    _iterator2.f();
-  }
-}
 },{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -481,5 +340,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","scriptP2.js"], null)
-//# sourceMappingURL=/scriptP2.c1fb8bec.js.map
+},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../script.js"], null)
+//# sourceMappingURL=/script.76d4bba4.js.map
