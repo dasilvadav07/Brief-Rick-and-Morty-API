@@ -124,6 +124,24 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+var menuBtn = document.querySelector("#menu-mobile");
+var firstBar = document.querySelector("#menu-mobile span:first-child");
+var secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
+var thirdBar = document.querySelector("#menu-mobile span:last-child");
+var navMobile = document.querySelector(".nav__mobile");
+menuBtn.addEventListener("click", function () {
+  if (firstBar.classList.contains("transition")) {
+    firstBar.classList.remove("transition");
+    secondBar.classList.remove("transition2");
+    thirdBar.classList.remove("transition3");
+    navMobile.classList.remove("appear");
+  } else {
+    firstBar.classList.add("transition");
+    secondBar.classList.add("transition2");
+    thirdBar.classList.add("transition3");
+    navMobile.classList.add("appear");
+  }
+});
 var cardPerso = document.querySelector(".perso__cards"); // const containerNames = document.querySelector(".perso__names");
 // const epPerso = document.querySelector(".perso__ep")
 
@@ -285,7 +303,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64744" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62365" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

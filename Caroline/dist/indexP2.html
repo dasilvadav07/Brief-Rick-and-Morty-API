@@ -13,11 +13,53 @@
     <title>Personnages - Rick et Morty</title>
 <script src="/styleP2.e028aa42.js"></script></head>
 <body>
+    <header class="header">
+        <div class="header__mobile">
+            <div class="header__logo--mobile">
+                <!-- <img id="#" src="./asset/logorickmorty.jpg" alt="logo rick and morty"> -->
+            </div>
+            <button id="menu-mobile">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav__mobile">
+                <ul class="nav__mobile--list">
+                    <li class="list__element"><a href="">Episodes</a></li>
+                    <li class="list__element"><a href="/indexP2.html">Personnages</a></li>
+                    <li class="list__element"><a href="">Lieux</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header__desktop">
+            <div class="header__logo">
+                <!-- <img src="./asset/logorickmorty.jpg" alt="logo rick and morty"> -->
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__list--element">
+                        <a href="">Episodes</a>
+                    </li>
+                    <li class="nav__list--element">
+                        <a href="/indexP2.html">Personnages</a>
+                    </li>
+                    <li class="nav__list--element">
+                        <a href="">Lieux</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <main class="container__main--perso">
         <div class="title">
             <h1>Personnages</h1>
         </div>
-        <div class="img__perso"><img src="/fond_perso.22571fb0.png" alt=""></div>
+        <div class="img__perso--mobile">
+            <img src="/fond_perso.22571fb0.png" alt="">
+        </div>
+        <div class="img__perso--desktop">
+            <img src="/imghomedesktop.f7fe4c15.png" alt="">
+        </div>
         <div class="container__cards--perso">
             <div class="species__title">
                 <span class="species"><a>Human</a></span>
