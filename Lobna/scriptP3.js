@@ -1,3 +1,23 @@
+let menuBtn = document.querySelector("#menu-mobile");
+let firstBar = document.querySelector("#menu-mobile span:first-child");
+let secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
+let thirdBar = document.querySelector("#menu-mobile span:last-child");
+let navMobile = document.querySelector(".nav__mobile");
+
+menuBtn.addEventListener("click", () => {
+    if (firstBar.classList.contains("transition")) {
+        firstBar.classList.remove("transition");
+        secondBar.classList.remove("transition2");
+        thirdBar.classList.remove("transition3");
+        navMobile.classList.remove("appear");
+    } else {
+        firstBar.classList.add("transition");
+        secondBar.classList.add("transition2");
+        thirdBar.classList.add("transition3");
+        navMobile.classList.add("appear");
+    }
+})
+
 
 let tabUrlsLocation = ["https://rickandmortyapi.com/api/location?", "https://rickandmortyapi.com/api/location?page=2", "https://rickandmortyapi.com/api/location?page=3", "https://rickandmortyapi.com/api/location?page=4", "https://rickandmortyapi.com/api/location?page=5", "https://rickandmortyapi.com/api/location?page=6"];
 
@@ -21,8 +41,8 @@ Promise.all(tabUrlsLocation.map(urlLocation => fetch(urlLocation)))
                 // let tabLieux = data.results
                 let tabLieux = data[0].results.concat(data[1].results, data[2].results, data[3].results, data[4].results, data[5].results);
 
-                let imgHomePlace= document.querySelector('.containerImage')
-                imgHomePlace.classList.add('hide');
+                let imgHomePlace= document.querySelector('.containerImage');
+                imgHomePlace.style.display = "none";
                 
                 const location = document.querySelector('.cardPlace');
                 location.innerHTML = " ";

@@ -117,13 +117,107 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"scriptP3.js":[function(require,module,exports) {
+})({"../David/scriptP1.js":[function(require,module,exports) {
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+/*
+fetch("https://rickandmortyapi.com/api/episode")
+    .then(function (res) {
+        return res.json();
+    })
+    .then(function (data) {        
+        console.log(data);
+        */
+
+/*
+let select = document.querySelector("#season");
+let tabResult = data.results;
+const mainContainer = document.querySelector(".main");
+    //console.log(select);
+    select.addEventListener("change", (e) =>{
+        let season = e.target.value;
+        console.log(season);
+        console.log(tabResult);
+        mainContainer.innerHTML = "";
+        for (let i = 0; i < tabResult.length; i++) {
+            //console.log(tabResult[i].episode);
+            let splitSeason = tabResult[i].episode.split("");
+            console.log(splitSeason[2]);
+            if (season == "s1" && splitSeason[2] == 1) {
+                addNewCard(tabResult[i]);
+            }
+            else if (season == "s2" && splitSeason[2] == 2) {
+                addNewCard(tabResult[i]);
+            }
+        }
+            //console.log(splitSeason);
+      })
+      */
+
+/*})
+
+.catch(function (error) {
+   console.error(error);
+})  */
+
+/*
+fetch("https://rickandmortyapi.com/api/episode?page=2")
+    .then(function (resp) {
+        return resp.json();
+    })
+    .then(function(data2){
+        console.log(data2);
+    })
+    */
+
+/*
+let tabFetch = [fetch("https://rickandmortyapi.com/api/episode"), fetch("https://rickandmortyapi.com/api/episode?page=2"), fetch("https://rickandmortyapi.com/api/episode?page=3")]
+for (let j = 0; j < tabFetch.length; j++) {
+tabFetch[j].then(function (res) {
+    return res.json();
+})
+.then(function (data) {        
+    let tabData = [data.results];
+    //console.log(tabData[0]);
+    for (let i = 0; i < tabData.length; i++) {
+        //console.log(tabData[0]);
+        for (let j = 0; j < tabData[i].length; j++) {
+            //console.log(tabData[i][j]);
+            let select = document.querySelector("#season");
+            const mainContainer = document.querySelector(".main");
+            let allDataResults = (tabData[i])[j];
+            //console.log(allDataResults.episode);
+            select.addEventListener("change", (e) =>{
+                let season = e.target.value;
+                let splitSeason = allDataResults.episode.split("");
+                //console.log(splitSeason[2]);
+                //mainContainer.innerHTML = "";
+                //console.log(splitSeason);
+                if (season == "s1" && splitSeason[2] == 1) {
+                    //console.log(allDataResults);
+                    addNewCard(allDataResults);
+                } else if (season == "s2" && splitSeason[2] == 2) {
+                    addNewCard(allDataResults);
+                } else if (season == "s3" && splitSeason[2] == 3) {
+                    addNewCard(allDataResults);
+                } else if (season == "s4" && splitSeason[2] == 4) {
+                    addNewCard(allDataResults);
+                } 
+            })
+        }
+    }
+    
+ })
+.catch(function (error) {
+    console.error(error);
+})
+
+}
+*/
 var menuBtn = document.querySelector("#menu-mobile");
 var firstBar = document.querySelector("#menu-mobile span:first-child");
 var secondBar = document.querySelector("#menu-mobile span:nth-child(2)");
@@ -142,122 +236,201 @@ menuBtn.addEventListener("click", function () {
     navMobile.classList.add("appear");
   }
 });
-var tabUrlsLocation = ["https://rickandmortyapi.com/api/location?", "https://rickandmortyapi.com/api/location?page=2", "https://rickandmortyapi.com/api/location?page=3", "https://rickandmortyapi.com/api/location?page=4", "https://rickandmortyapi.com/api/location?page=5", "https://rickandmortyapi.com/api/location?page=6"];
+var urls = ["https://rickandmortyapi.com/api/episode", "https://rickandmortyapi.com/api/episode?page=2", "https://rickandmortyapi.com/api/episode?page=3"];
 
-for (var iurl = 0; iurl < tabUrlsLocation.length; iurl++) {
-  var urlLocation = tabUrlsLocation[iurl];
+for (var i = 0; i < urls.length; i++) {
+  var url = urls[i];
 }
 
-Promise.all(tabUrlsLocation.map(function (urlLocation) {
-  return fetch(urlLocation);
+Promise.all(urls.map(function (url) {
+  return fetch(url);
 })).then(function (resp) {
   return Promise.all(resp.map(function (r) {
     return r.json();
   }));
 }).then(function (data) {
-  var placeType = document.getElementsByClassName('type');
+  //console.log(data);
+  for (var j = 0; j < data.length; j++) {//console.log(data[j].results);
+  }
 
-  var _loop = function _loop(i) {
-    placeType[i].addEventListener('click', function () {
-      // let tabLieux = data.results
-      var tabLieux = data[0].results.concat(data[1].results, data[2].results, data[3].results, data[4].results, data[5].results);
-      var imgHomePlace = document.querySelector('.containerImage');
-      imgHomePlace.style.display = "none";
-      var location = document.querySelector('.cardPlace');
-      location.innerHTML = " ";
+  var tab = data[0].results.concat(data[1].results, data[2].results); //console.log(tab);
 
-      var _iterator = _createForOfIteratorHelper(tabLieux),
-          _step;
+  var select = document.querySelector("#season");
+  var mainContainer = document.querySelector(".main"); //console.log(select);
+
+  for (var _i = 0; _i < tab.length; _i++) {
+    //console.log(tabResult[i].episode);
+    var splitSeason = tab[_i].episode.split(""); //console.log(splitSeason[2]);
+
+
+    if (splitSeason[2] == 1) {
+      addNewCard(tab[_i]);
+    }
+  }
+
+  var ep = document.querySelectorAll(".card--name");
+
+  var _loop = function _loop(_i2) {
+    ep[_i2].addEventListener('click', function (e) {
+      //console.log(tab.filter(x => x.id == ep[i].id));
+      var objetEpisodeClicked = tab.filter(function (x) {
+        return x.id == ep[_i2].id;
+      })[0];
+      var chara = document.querySelector(".characters");
+      var mainContainer = document.querySelector(".main");
+      mainContainer.classList.toggle("slide-right");
+      var footer = document.querySelector(".footer");
+      footer.classList.toggle("slide-right");
+      chara.innerHTML = "";
+      chara.classList.toggle("popup");
+
+      var _iterator2 = _createForOfIteratorHelper(objetEpisodeClicked.characters),
+          _step2;
 
       try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var index = _step.value;
-          var listUriResidents = index.residents;
-
-          if (i == 0 && index.type == 'Planet') {
-            card(index); // console.log(index);
-
-            getResidentsDetails(listUriResidents, index); // console.log("liste:",listUriResidents)
-          } else if (i == 1 && index.type == 'Space station') {
-            card(index); // console.log(index);
-
-            getResidentsDetails(listUriResidents, index); // console.log("liste2 :", listUriResidents)
-          } else if (i == 2 && index.type != 'Planet' && index.type != 'Space station') {
-            card(index); // console.log(index);
-
-            getResidentsDetails(listUriResidents, index); //console.log("liste3 :", listUriResidents)
-          }
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var character = _step2.value;
+          fetch(character).then(function (resp) {
+            return resp.json();
+          }).then(function (respJson) {
+            console.log(respJson);
+            chara.innerHTML += "<li class=\"description\"><img src=\"".concat(respJson.image, "\"/>").concat(respJson.name, "</li>");
+          });
         }
       } catch (err) {
-        _iterator.e(err);
+        _iterator2.e(err);
       } finally {
-        _iterator.f();
+        _iterator2.f();
       }
-
-      var bt = document.getElementsByClassName('buttonName'); // let divResidents = document.getElementsByClassName('hide');
-
-      console.log(bt);
-      var cpt = 0;
-
-      for (var j = 0; j < bt.length; j++) {
-        console.log(bt[j]);
-        bt[j].addEventListener('click', function (event) {
-          var cible = event.target.nextElementSibling;
-          cible.classList.remove('hide');
-          var currentElement = document.querySelector('.show');
-          cpt++; //console.log(cpt, currentElement)
-
-          if (cpt > 1) {
-            cible.classList.remove('hide');
-            cible.classList.add('show');
-            currentElement.classList.remove('show');
-            currentElement.classList.add('hide');
-          } else if (cpt = 1) {
-            cible.classList.remove('hide');
-            cible.classList.add('show');
-          }
-        });
-      } //console.log('click', event.target.nextElementSibling)
-
     });
   };
 
-  for (var i = 0; i < placeType.length; i++) {
-    _loop(i);
+  for (var _i2 = 0; _i2 < ep.length; _i2++) {
+    _loop(_i2);
   }
-}).catch(function (error) {
-  console.error(error);
-});
 
-function card(results) {
-  // const imgPlace = document.getElementsByClassName('containerImgLieux');
-  // imgPlace.innerHTML+=
-  // ` <img src="${infoLocation.url}">`
-  var location = document.querySelector('.cardPlace');
-  location.innerHTML += "<div class=\"containerInfoLieux\" id=\"idplace-".concat(results.id, "\">\n     <div class=\"id\">").concat(results.id, "</div>\n     <div class=\"name\">").concat(results.name, "</div>\n     <div class=\"type\">").concat(results.type, "</div>\n     <div class=\"dimension\">").concat(results.dimension, "</div>\n     <div class=\"created\">").concat(results.created, "</div>\n     </div>\n     <button class=\"buttonName\">Residents</button><div class=\"divp hide\" id=\"persoName-").concat(results.id, "\"></div>");
-}
+  select.addEventListener("change", function (e) {
+    var season = e.target.value; //console.log(season);
 
-function getResidentsDetails(listUriResidents, results) {
-  var _iterator2 = _createForOfIteratorHelper(listUriResidents),
-      _step2;
+    var chara = document.querySelector(".characters");
+    chara.innerHTML = "";
+    chara.classList.add("popup");
+    chara.classList.toggle("popup");
+    mainContainer.classList.remove("slide-right");
+    var footer = document.querySelector(".footer");
+    footer.classList.remove("slide-right");
+    mainContainer.innerHTML = "";
 
-  try {
-    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-      var uri = _step2.value;
-      fetch(uri).then(function (response) {
-        return response.json();
-      }).then(function (resp2) {
-        // console.log(resp2)
-        var divResidents = document.querySelector("#persoName-".concat(results.id));
-        divResidents.innerHTML += "<p class=\"p\" > ".concat(resp2.name, " </p>");
-      });
+    for (var _i3 = 0; _i3 < tab.length; _i3++) {
+      //console.log(tabResult[i].episode);
+      var _splitSeason = tab[_i3].episode.split(""); //console.log(splitSeason[2]);
+
+
+      if (season == "s1" && _splitSeason[2] == 1) {
+        addNewCard(tab[_i3]);
+      } else if (season == "s2" && _splitSeason[2] == 2) {
+        addNewCard(tab[_i3]);
+      } else if (season == "s3" && _splitSeason[2] == 3) {
+        addNewCard(tab[_i3]);
+      } else if (season == "s4" && _splitSeason[2] == 4) {
+        addNewCard(tab[_i3]);
+      }
     }
-  } catch (err) {
-    _iterator2.e(err);
-  } finally {
-    _iterator2.f();
-  }
+
+    var ep = document.querySelectorAll(".card--name");
+
+    var _loop2 = function _loop2(_i4) {
+      ep[_i4].addEventListener('click', function (e) {
+        console.log(tab.filter(function (x) {
+          return x.id == ep[_i4].id;
+        }));
+        var objetEpisodeClicked = tab.filter(function (x) {
+          return x.id == ep[_i4].id;
+        })[0];
+        var mainContainer = document.querySelector(".main");
+        mainContainer.classList.toggle("slide-right");
+        var footer = document.querySelector(".footer");
+        footer.classList.toggle("slide-right");
+        var chara = document.querySelector(".characters");
+        chara.innerHTML = "";
+        chara.classList.toggle("popup");
+        /*chara.classList.remove("close");*/
+
+        var _iterator = _createForOfIteratorHelper(objetEpisodeClicked.characters),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var character = _step.value;
+            fetch(character).then(function (resp) {
+              return resp.json();
+            }).then(function (respJson) {
+              //console.log(respJson);
+              chara.innerHTML += "<li class=\"description\"><img src=\"".concat(respJson.image, "\"/>").concat(respJson.name, "</li>");
+            });
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      });
+    };
+
+    for (var _i4 = 0; _i4 < ep.length; _i4++) {
+      _loop2(_i4);
+    }
+  });
+});
+/*let chara = document.querySelector(".characters");
+let cross = document.getElementById("close-popup");
+cross.addEventListener("click", function(event) {
+    if (event.target == chara) {
+        chara.style.display="none";
+    }
+})*/
+
+function addNewCard(episodes) {
+  var mainContainer = document.querySelector(".main");
+  mainContainer.innerHTML += "<div class=\"card\">\n          <span class=\"card--name\" id=\"".concat(episodes.id, "\">").concat(episodes.name, "</span>\n          <button class=\"button\">").concat(episodes.episode, "</button>\n\n        </div>");
 }
+/*
+let describ = document.querySelectorAll(".description");
+for (let index = 0; index < describ.length; index++) {
+    console.log(describ[0]);
+    //for (const div of describ) {
+      //  div.innerHTML += respJson.name;
+    //}
+}*/
+//describ.innerHTML += respJson.name
+
+/*
+function getEpisodeDetails(listUri, divEp) {
+    let reponse = [];
+  
+    for (const uri of listUri) {
+      fetch(uri).then((resp)=> {
+        return resp.json()
+      }).then((resp2)=> {
+        console.log(resp2.id)
+        reponse.push(resp2);
+        divEp.innerHTML += `<span> ${resp2.name} </span>`
+      })
+    }
+}
+*/
+
+/*
+function cardDescription(episodes) {
+    const mainContainer = document.querySelector(".main");
+    mainContainer.innerHTML +=
+    `<div class="card--description">
+    <div claas="card--perso">
+    <img src="${episodes.characters}" alt="characters from rick and morty">
+    </div>
+    </div>`   
+}
+*/
 },{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -462,5 +635,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","scriptP3.js"], null)
-//# sourceMappingURL=/scriptP3.739eb583.js.map
+},{}]},{},["../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../David/scriptP1.js"], null)
+//# sourceMappingURL=/scriptP1.5644ece5.js.map
